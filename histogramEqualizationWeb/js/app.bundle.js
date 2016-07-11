@@ -67340,7 +67340,7 @@ if ('serviceWorker' in navigator) {
 (function(angular) {
 	angular.module('histogramEqualizationWeb', ['ngMaterial', 'ksSwiper', 'omr.directives'])
 	.config(['$mdIconProvider', '$mdThemingProvider', function($mdIconProvider, $mdThemingProvider) {
-		$mdIconProvider.iconSet('material', 'img/iconset.svg');
+		$mdIconProvider.iconSet('material', 'historyEqualizationWeb/img/iconset.svg');
 		$mdThemingProvider.theme('default')
 		.primaryPalette('indigo')
 		.accentPalette('pink');
