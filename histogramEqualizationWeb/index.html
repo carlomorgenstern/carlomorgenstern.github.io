@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen">
+	<link rel="manifest" href="manifest.json">
+	<script src="js/app.bundle.js"></script>
+	<title>Historgram Equalization Web</title>
+</head>
+<body ng-app="histogramEqualizationWeb" ng-controller="MainController" layout="column">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Historgram Equalization Web</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="Choose photo" ng-click="triggerPhotoUpload()" ng-disabled="disableChoosePhotoButton">
+				<md-icon md-svg-icon="material:choosePhoto"></md-icon>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="Take photo" ng-click="triggerCamera()" ng-disabled="disableTakePhotoButton">
+				<md-icon md-svg-icon="material:takePhoto"></md-icon>
+			</md-button>
+			<md-menu>
+				<md-button class="md-icon-button" aria-label="More" ng-show="activeSlide == 1" ng-click="$mdOpenMenu($event)">
+					<md-icon md-svg-icon="material:moreVert"></md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="showPerformance($event)" aria-label="Show performance">
+							Show performance
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="redoComputation()" aria-label="Redo computation">
+							Redo computation
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+	</md-toolbar>
+
+	<ks-swiper-container class="swiper-container" pagination-is-active="false" initial-slide="0"  on-ready="onSwiperReady(swiper)" ng-hide="cameraVisible">
+		<ks-swiper-slide class="image-content">
+			<canvas id="originalImage" ng-hide="!originalImage"></canvas>
+			<div ng-hide="originalImage" class="stable">Please take or choose a photo.</div>
+		</ks-swiper-slide>
+		<ks-swiper-slide class="image-content">
+			<canvas id="processedImage" ng-hide="!processedImage"></canvas>
+			<md-progress-circular md-mode="indeterminate" ng-hide="!isProcessing"></md-progress-circular>
+			<div ng-hide="processedImage || isProcessing" class="stable">Please take or choose a photo.</div>
+		</ks-swiper-slide>
+	</ks-swiper-container>
+
+	<video id='cameraFeed' ng-show="cameraVisible"></video>
+	<div layout="row" layout-align="center center">
+		<md-button id="shutterButton" class="md-fab md-primary" aria-label="Shutter" ng-show="cameraVisible" ng-click="takePhoto()">
+			<md-icon md-svg-icon="material:shutterIcon"></md-icon>
+		</md-button>
+	</div>
+	<div style="display:none"><input id="fileUpload" type="file" value="upload" on-file-change="choosePhoto"/></div>
+
+	<script type="text/ng-template" id="performanceDialog.html">
+		<md-dialog layout-padding>
+				<md-dialog-content>
+					<h2>Performance</h2>
+					<table class="popupTable" cellpadding="5">
+						<tr>
+							<td>Start time:</td>
+							<td>{{performanceData.startTime}}</td>
+						</tr>
+						<tr>
+							<td>Converted RGB to Y\'CbCr:</td>
+							<td>{{performanceData.conversion}}</td>
+						</tr>
+						<tr>
+							<td>Histogram build:</td>
+							<td>{{performanceData.histogramBuild}}</td>
+						</tr>
+						<tr>
+							<td>Lookup table build:</td>
+							<td>{{performanceData.lutBuild}}</td>
+						</tr>
+						<tr>
+							<td>Equalization applied:</td>
+							<td>{{performanceData.equalization}}</td>
+						</tr>
+						<tr>
+							<td>Converted Y\'CbCr to RGB:</td>
+							<td>{{performanceData.conversionBack}}</td>
+						</tr>
+					</table>
+				</md-dialog-content>
+			</md-dialog>
+	</script>
+</body>
+</html>

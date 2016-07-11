@@ -1,0 +1,25 @@
+{
+    "manifest_version": 1,
+    "name": "Histogram Equalization Web",
+    "version": "1.0.0",
+    "default_locale": "en",
+    "description": "Histogram Equalization for the Web",
+    "icons": [{
+        "src": "/img/icon48.png",
+        "size": "48x48",
+        "type": "image/png"
+    }, {
+        "src": "/img/icon128.png",
+        "size": "128x128",
+        "type": "image/png"
+    }, {
+        "src": "/img/icon144.png",
+        "size": "144x144",
+        "type": "image/png"
+    }],
+    "author": "Carlo Mrogenstern",
+    "theme_color": "#f8f8f8",
+    "start_url": "index.html",
+    "display": "standalone",
+    "orientation": "portrait"
+}
